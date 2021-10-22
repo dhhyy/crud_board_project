@@ -7,7 +7,7 @@ from django.views import View
 from django.http  import HttpResponse, JsonResponse, response
 from .models      import User
 from .utils       import LoginDecorator
-from my_settings  import SECRET_KEY, email_validation, password_validation, algorithm
+from my_settings  import SECRET_KEY, email_validation, password_validation, algorithm, password_limit_length
 
 class SignUpView(View):
     def post(self, request):
@@ -26,24 +26,22 @@ class SignUpView(View):
 
             if not password_validation.match(password):
                 return JsonResponse({'message' : 'NOT_MATCHED_PASSWORD_FORM'}, status=400)
-        
+            
+            if len(password) < password_limit_length:
+                return JsonResponse({'message' : 'TOO_SHORT_PASSWWORD'}, status=400)
+            
             hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             
-            user = User(
-                email    = email,
-                password = hashed_password.decode('utf-8'),
-                name     = name
-            )
-            
-            user.save()
+            User.objects.create(
+                    email    = email, 
+                    password = hashed_password.decode('utf-8'),
+                    name     = name,
+                    )
 
             return JsonResponse({'message' : 'SUCCESS'}, status=201)
         
         except KeyError:    
             return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
-        
-        except json.JSONDecodeError:
-            return JsonResponse({'message' : 'JSONDecodeError'}, status = 400)
         
 class SignInView(View):
     def post(self, request):
@@ -70,7 +68,7 @@ class SignInView(View):
             return JsonResponse({'message' : 'NOT_MATCHED_PASSWORD'}, status=401)
             
         except KeyError:
-            JsonResponse({'message' : 'KEY_ERROR'}, status=401)
+            return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
             
         except json.JSONDecodeError:
             return JsonResponse({'message' : 'JSONDecodeError'}, status = 400)
