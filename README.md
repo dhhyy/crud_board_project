@@ -29,6 +29,13 @@ python & django을 사용하여 기초적인 crud 게시판을 구현하였습�
 - 구현 기능 전체 unittest 진행
 
 ### Endpoint 호출 방법
+```python
+{
+    "email"    : "modmodmod@gmail.com",
+    "password" : "1234",
+    "name"     : "하석진"
+}
+```
 
 ### api 명세(request/response 서술 필요)
 - api 명세서 첨부
