@@ -85,4 +85,3 @@ Response
 ```
 
 ### api 명세(request/response 서술 필요)
-- api 명세서 첨부
