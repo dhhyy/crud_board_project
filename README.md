@@ -33,13 +33,17 @@ python & django을 사용하여 기초적인 crud 게시판을 구현하였습�
     - POST /users/signup HTTP/1.1
     - Host: http://127.0.0.1:8000/
     - post 메서드를 사용, Body에 정보를 JSON에 담아 전달. 
+    **Request**
 ```python
 {
     "email"    : "modmodmod@gmail.com",
     "password" : "1234",
     "name"     : "하석진"
 }
-=> {
+
+    **Response**
+```python
+{
     "message": "SUCCUSS"
 }
 ```
