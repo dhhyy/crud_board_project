@@ -2,24 +2,24 @@
 ### 구현한 방법과 간단한 내용
 python & django을 사용하여 기초적인 crud 게시판을 구현하였습니다. 
 
-### 실행 환경
+## 실행 환경
 - Mac OS
 - Conda 4.9.2
 - Django 3.2.6
 - SQLite3
 - django-cors-headers-3.10.0
 
-### Datebase Modeling
+## Datebase Modeling
 ![스크린샷 2021-10-22 오후 11 02 34](https://user-images.githubusercontent.com/40171383/138491083-c2a780bf-74f3-47fc-a6f0-dc2430d5b6b4.png)
 
-### 사용된 스택
+## 사용된 스택
 - Python,
 - Django,
 - SQLite3
 - unittest
 - etc : Postman
 
-### 구현 사항
+## 구현 사항
 - 회원 가입
     - email validation
     - bcrypt 사용한 암호화
@@ -28,7 +28,8 @@ python & django을 사용하여 기초적인 crud 게시판을 구현하였습�
     - bcrypt 사용한 암호화, 저장 시에는 decode
 - 구현 기능 전체 unittest 진행
 
-### Endpoint 호출 방법
+## Endpoint 호출 방법
+### users
 1. 회원가입 API
     - POST : users/signup HTTP/1.1
     - Host : http://127.0.0.1:8000/
@@ -83,5 +84,24 @@ Response
     "user_name": "이광수"
 }
 ```
-
+### boards
+1. board posting API
+    - POST : users/boards/post HTTP/1.1
+    - Host : http://127.0.0.1:8000/
+    - request.headers의 담에 'Authorization'이라는 key의 value 값을 확인하여 인가절차 수행.
+    - 인가 절차가 완료되면 해당 토큰의 user_name을 Resonse
+```python
+Request
+{
+    "content": "testtsetst",
+    "tag": "1",
+    "title": "testing_2"
+}
+```
+```python
+Response
+{
+    "message": "SUCCESS"
+}
+```
 ### api 명세(request/response 서술 필요)
