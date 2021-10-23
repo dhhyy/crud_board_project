@@ -88,8 +88,7 @@ Response
 1. board posting API
     - POST : users/boards/post HTTP/1.1
     - Host : http://127.0.0.1:8000/
-    - request.headers의 담에 'Authorization'이라는 key의 value 값을 확인하여 인가절차 수행.
-    - 인가 절차가 완료되면 해당 토큰의 user_name을 Resonse
+    - title, content, tag 등을 json에 담아 전달.
 ```python
 Request
 {
