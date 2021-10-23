@@ -107,4 +107,25 @@ Response
     "message": "SUCCESS"
 }
 ```
+2. board detail posting API
+    - POST : users/boards/detail/ HTTP/1.1
+    - Host : http://127.0.0.1:8000/
+    - 인자로 보내지는 board_id에 해당하는 게시글 조회.
+    - hits로 표기된 조회수 체크 가능.
+    - 전달하는 값은 board_id만 전달.
+```python
+Response
+{
+    "message": [
+        {
+            "content": "testtsetst",
+            "hits": 1,
+            "id": 1,
+            "tag": "배송문의",
+            "title": "testing_1",
+            "writer": "하석진"
+        }
+    ]
+}
+```
 ### api 명세(request/response 서술 필요)
