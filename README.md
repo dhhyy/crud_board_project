@@ -128,4 +128,94 @@ Response
     ]
 }
 ```
+3. board posting list API
+    - POST : users/boards/list?limit=10&offset=0&order=hits HTTP/1.1
+    - Host : http://127.0.0.1:8000/
+    - limit, offset 등 설정값을 통해 전체 pagenation 구현.
+    - order_condition = create_at : 내림차순 정렬
+    - order_condition = hits : 오름차순 정렬
+```python
+Response
+{
+    "message": [
+        {
+            "id": 1,
+            "title": "글 수정",
+            "content": "testtsetst",
+            "hits": 4,
+            "writer": "하석진",
+            "tag": "사이즈문의",
+            "create_at": "2021-10-25 01:41:00"
+        },
+        {
+            "id": 2,
+            "title": "testing_2",
+            "content": "testtsetst",
+            "hits": 2,
+            "writer": "하석진",
+            "tag": "사이즈문의",
+            "create_at": "2021-10-25 01:41:06"
+        },
+        {
+            "id": 3,
+            "title": "testing_3",
+            "content": "testtsetst",
+            "hits": 1,
+            "writer": "하석진",
+            "tag": "배송문의",
+            "create_at": "2021-10-25 01:41:12"
+        },
+        {
+            "id": 4,
+            "title": "testing_4",
+            "content": "testtsetst",
+            "hits": 0,
+            "writer": "하석진",
+            "tag": "사이즈문의",
+            "create_at": "2021-10-25 01:41:18"
+        }
+    ]
+}
+```
+4. board posting list API
+    - POST : users/boards/repost/1 HTTP/1.1
+    - Host : http://127.0.0.1:8000/
+```python
+Request
+{
+    "message": [
+    {
+        "title"    : "수정 후",
+        "content"  : "testing_content",
+        "password" : 1234,
+        "tag"      : 1
+        }
+    ]
+}
+```
+```python
+Response
+{
+    "message": "SUCCESS"
+}
+```
+5. board posting delete API
+    - POST : users/boards/delete/1 HTTP/1.1
+    - Host : http://127.0.0.1:8000/
+```python
+Request
+{
+    "message": [
+    {
+        "password" : 1234,
+        }
+    ]
+}
+```
+```python
+Response
+{
+    "message": "SUCCESS"
+}
+```
 ### api 명세(request/response 서술 필요)
