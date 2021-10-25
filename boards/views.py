@@ -141,3 +141,6 @@ class PostingDeleteView(View):
         
         except Board.DoesNotExist:
             return JsonResponse({'message' : 'INVALID_BOARD_ID'}, status=400)
+        
+        except KeyError:
+            return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
