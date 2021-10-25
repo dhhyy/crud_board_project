@@ -453,3 +453,22 @@ class PostingDeleteTest(TestCase):
         
         response = self.client.post('/boards/delete/10', json.dumps(data), content_type='application/json', **header)
         self.assertEqual(response.status_code, 400)
+        
+    def test_fail_delele_key_error(self):
+        
+        signin_user = {
+            "email"    : "test1@test.com",
+            "password" : "1234"
+        }
+
+        signin_response = self.client.post('/users/signin', json.dumps(signin_user), content_type='application/json')
+
+        header = {'HTTP_Authorization' : signin_response.json()['access_token']}
+        
+        data = {
+            'id'       : 1,  
+            'passwor' : '1234'
+        }
+        
+        response = self.client.post('/boards/delete/1', json.dumps(data), content_type='application/json', **header)
+        self.assertEqual(response.status_code, 400)
