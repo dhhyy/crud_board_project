@@ -221,4 +221,6 @@ Response
     "message": "SUCCESS"
 }
 ```
-### api 명세(request/response 서술 필요)
+### api 명세
+## postman API 명세서
+https://documenter.getpostman.com/view/15461593/UV5dcDkD
