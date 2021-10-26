@@ -12,11 +12,15 @@ class PostingView(View):
     def post(self, request):
         
         try:
-            data    = json.loads(request.body)
-            title   = data['title']
-            content = data['content']
-            writer  = request.user
-            tag     = Tag.objects.get(id=data['tag'])
+            data     = json.loads(request.body)
+            title    = data['title']
+            content  = data['content']
+            writer   = request.user
+            password = data['password']
+            tag      = Tag.objects.get(id=data['tag'])
+            
+            if not bcrypt.checkpw(password.encode('UTF-8'), request.user.password.encode('UTF-8')):
+                return JsonResponse({'message' : 'NOT_MATCHED_PASSWORD'}, status=400)
             
             if not title or not content:
                 return JsonResponse({'message' : 'CHECK_YOUR_INPUT'}, status=400)
@@ -30,7 +34,7 @@ class PostingView(View):
                 writer    = writer,
                 password  = request.user.password,
                 tag       = tag
-            )
+            ) 
             
             board.save()
 
@@ -38,7 +42,7 @@ class PostingView(View):
             
         except KeyError:
             return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
-        
+
 class PostingDetailView(View):
     def get(self, request, board_id=None):
         
@@ -77,7 +81,7 @@ class PostingListView(View):
             if order_condition == "hits":
                 boards = Board.objects.order_by("-hits")
             
-            if order_condition == "recents":
+            if order_condition == "recent":
                 boards = Board.objects.order_by("create_at")
         
             board_list = [

@@ -70,6 +70,27 @@ class PostingTest(TestCase):
         response = self.client.post('/boards/post', json.dumps(data), content_type='application/json', **header)
         self.assertEqual(response.status_code, 200)
         
+    def test_fail_not_matched_password_posting(self):
+    
+        signin_user = {
+            "email"    : "test1@test.com",
+            "password" : "1234"
+        }
+
+        signin_response = self.client.post('/users/signin', json.dumps(signin_user), content_type='application/json')
+        header = {'HTTP_Authorization' : signin_response.json()['access_token']}
+        
+        data   = {
+            "title"    : "testing_post_1",
+            "content"  : "testing_content",
+            "password" : "1233",
+            "writer"   : 1,
+            "tag"      : 1
+        }
+        
+        response = self.client.post('/boards/post', json.dumps(data), content_type='application/json', **header)
+        self.assertEqual(response.status_code, 400)
+        
     def test_fail_not_input_data(self):
         
         signin_user = {
