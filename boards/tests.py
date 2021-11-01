@@ -71,7 +71,7 @@ class PostingTest(TestCase):
         self.assertEqual(response.status_code, 200)
         
     def test_fail_not_matched_password_posting(self):
-    
+        
         signin_user = {
             "email"    : "test1@test.com",
             "password" : "1234"
