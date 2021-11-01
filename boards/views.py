@@ -3,7 +3,7 @@ import bcrypt
 
 from django.views        import View
 from django.http         import HttpResponse, JsonResponse
-from boards.models       import Board, Tag
+from boards.models       import Board
 from users.utils         import LoginDecorator
 from users.views         import User
 
@@ -17,7 +17,7 @@ class PostingView(View):
             content  = data['content']
             writer   = request.user
             password = data['password']
-            tag      = Tag.objects.get(id=data['tag'])
+            # tag      = Tag.objects.get(id=data['tag'])
             
             if not bcrypt.checkpw(password.encode('UTF-8'), request.user.password.encode('UTF-8')):
                 return JsonResponse({'message' : 'NOT_MATCHED_PASSWORD'}, status=400)
@@ -33,7 +33,7 @@ class PostingView(View):
                 content   = content,
                 writer    = writer,
                 password  = request.user.password,
-                tag       = tag
+                # tag       = tag
             ) 
             
             board.save()
